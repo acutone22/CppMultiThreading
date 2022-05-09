@@ -8,7 +8,7 @@ using namespace std;
 
 void foo()
 {
-    cout << "Hello World!\n";
+    cout << "Hello thread id:" << this_thread::get_id() << endl;
 }
 
 class callable_class
@@ -16,7 +16,7 @@ class callable_class
 public:
     void operator()()
     {
-        cout << ("Hello from class with func call operator") << endl;
+        cout << "Hello from thread id:" << this_thread::get_id() << " with func call operator" << endl;
     }
 };
 
@@ -31,11 +31,11 @@ int main()
 
     std::thread lambdaThread([]()
         {
-            cout << "Calling thread from lambda function" << endl;
+            cout << "Calling thread id:" << this_thread::get_id() << " from lambda function" << endl;
         });
     lambdaThread.join();
 
-    cout << "main" << endl;
+    cout << "Running main function" << endl;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu

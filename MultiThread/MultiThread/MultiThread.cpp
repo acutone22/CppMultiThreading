@@ -3,12 +3,20 @@
 
 #include <iostream>
 #include <thread>
+#include <chrono>
 
 using namespace std;
 
 void foo()
 {
-    cout << "Hello thread id:" << this_thread::get_id() << endl;
+    this_thread::sleep_for(chrono::milliseconds(5000));
+    cout << "Hello foo thread id:" << this_thread::get_id() << endl;
+}
+
+void bar()
+{
+    this_thread::sleep_for(chrono::milliseconds(5000));
+    cout << "Hello bar thread id:" << this_thread::get_id() << endl;
 }
 
 class callable_class
@@ -22,20 +30,14 @@ public:
 
 int main()
 {
-    std::thread thread1(foo);
-    cout << "Thread1 is" << (thread1.joinable() ? "" : " not") << " joinable" << endl;
-    thread1.join();
-    cout << "After call join(), thread1 is" << (thread1.joinable() ? "" : " not") << " joinable" << endl;
+    std::thread foo_thread(foo);
+    std::thread bar_thread(bar);
 
-    callable_class obj;
-    std::thread thread2(obj);
-    thread2.join();
+    bar_thread.detach();
+    cout << "After bar thread detach" << endl;
 
-    std::thread lambdaThread([]()
-        {
-            cout << "Calling thread id:" << this_thread::get_id() << " from lambda function" << endl;
-        });
-    lambdaThread.join();
+    foo_thread.join();
+    cout << "After foo thread join" << endl;
 
-    cout << "Running main function" << endl;
+
 }

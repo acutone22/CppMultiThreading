@@ -9,27 +9,33 @@
 
 using namespace std;
 
-void foo()
+//Passing thread's args by value
+void func(int x, int y)
 {
-    cout << "Hello foo thread id:" << this_thread::get_id() << endl;
+    cout << "x + y = " << x + y << endl;
 }
 
-void some_operation_before_join()
+//Passing thread's args by refs
+void func_2(int& x)
 {
-
+    while (true)
+    {
+        cout << "Thread value of x: " << x << endl;
+        this_thread::sleep_for(chrono::milliseconds(1000));
+    }
 }
 
 int main()
 {
-    std::thread foo_thread(foo);
-    thread_guard tg(foo_thread);
+    int p = 9, q = 8;
 
+    thread t1(func, p, q);
+    t1.join();
 
-    try {
-        some_operation_before_join();
-    }
-    catch (...)
-    {
-    }
-
+    int x = 1;
+    thread t_ref(func_2,std::ref(x));
+    this_thread::sleep_for(chrono::milliseconds(5000));
+    x = 99;
+    cout << "Changing x to " << x << endl;
+    t_ref.join();
 }

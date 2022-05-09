@@ -18,5 +18,13 @@
     <ClCompile Include="MultiThread.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="thread_guard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="thread_guard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

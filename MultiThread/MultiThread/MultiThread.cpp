@@ -9,33 +9,18 @@
 
 using namespace std;
 
-//Passing thread's args by value
-void func(int x, int y)
-{
-    cout << "x + y = " << x + y << endl;
-}
-
-//Passing thread's args by refs
-void func_2(int& x)
-{
-    while (true)
-    {
-        cout << "Thread value of x: " << x << endl;
-        this_thread::sleep_for(chrono::milliseconds(1000));
-    }
-}
+void foo() { cout << "foo" << endl; return; }
+void bar() { cout << "bar" << endl; return; }
 
 int main()
 {
-    int p = 9, q = 8;
+    thread t1(foo);
+    //thread t2 = t1; //error: thread copy constructor is deleted 
+    thread t2 = move(t1); //ok. After move assignment, t1 does not own any object
 
-    thread t1(func, p, q);
+    t1 = thread(bar);
+
     t1.join();
+    t2.join();
 
-    int x = 1;
-    thread t_ref(func_2,std::ref(x));
-    this_thread::sleep_for(chrono::milliseconds(5000));
-    x = 99;
-    cout << "Changing x to " << x << endl;
-    t_ref.join();
 }

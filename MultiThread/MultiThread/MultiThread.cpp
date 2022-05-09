@@ -28,6 +28,11 @@ public:
     }
 };
 
+void some_operation_before_join()
+{
+
+}
+
 int main()
 {
     std::thread foo_thread(foo);
@@ -36,8 +41,15 @@ int main()
     bar_thread.detach();
     cout << "After bar thread detach" << endl;
 
-    foo_thread.join();
-    cout << "After foo thread join" << endl;
-
+    
+    try {
+        some_operation_before_join();
+        foo_thread.join();
+        cout << "After foo thread join" << endl;
+    }
+    catch (...)
+    {
+        foo_thread.join();
+    }
 
 }

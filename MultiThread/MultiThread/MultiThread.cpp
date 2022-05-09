@@ -11,10 +11,30 @@ void foo()
     cout << "Hello World!\n";
 }
 
+class callable_class
+{
+public:
+    void operator()()
+    {
+        cout << ("Hello from class with func call operator") << endl;
+    }
+};
+
 int main()
 {
-    std::thread thread(foo);
-    thread.join();
+    std::thread thread1(foo);
+    thread1.join();
+
+    callable_class obj;
+    std::thread thread2(obj);
+    thread2.join();
+
+    std::thread lambdaThread([]()
+        {
+            cout << "Calling thread from lambda function" << endl;
+        });
+    lambdaThread.join();
+
     cout << "main" << endl;
 }
 

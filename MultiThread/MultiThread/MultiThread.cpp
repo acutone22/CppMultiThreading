@@ -3,24 +3,32 @@
 
 #include <iostream>
 #include <thread>
+#include <mutex>
 #include <chrono>
 
-#include "thread_guard.h"
+#include "thread_safe_stack.h"
 
 using namespace std;
 
-void foo() { cout << "foo" << endl; return; }
-void bar() { cout << "bar" << endl; return; }
+void foo(thread_safe_stack<int>& stk) { stk.pop(); }
+void bar(thread_safe_stack<int>& stk) { stk.push(1); }
 
 int main()
 {
-    thread t1(foo);
-    //thread t2 = t1; //error: thread copy constructor is deleted 
-    thread t2 = move(t1); //ok. After move assignment, t1 does not own any object
+    thread_safe_stack<int> stk;
 
-    t1 = thread(bar);
+    stk.push(1);
 
-    t1.join();
-    t2.join();
+    stk.push(4);
+
+    //cout << *(stk.top()) << endl;
+
+    stk.pop();
+
+    thread t1(foo, std::ref(stk));
+    thread t2(bar, std::ref(stk));
+
+    t1.detach();
+    t2.detach();
 
 }

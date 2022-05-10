@@ -15,20 +15,6 @@ void bar(thread_safe_stack<int>& stk) { stk.push(1); }
 
 int main()
 {
-    thread_safe_stack<int> stk;
 
-    stk.push(1);
-
-    stk.push(4);
-
-    //cout << *(stk.top()) << endl;
-
-    stk.pop();
-
-    thread t1(foo, std::ref(stk));
-    thread t2(bar, std::ref(stk));
-
-    t1.detach();
-    t2.detach();
 
 }

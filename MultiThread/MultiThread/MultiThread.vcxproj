@@ -141,10 +141,12 @@
   <ItemGroup>
     <ClCompile Include="MultiThread.cpp" />
     <ClCompile Include="thread_guard.cpp" />
+    <ClCompile Include="thread_safe_queue.cpp" />
     <ClCompile Include="thread_safe_stack.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="thread_guard.h" />
+    <ClInclude Include="thread_safe_queue.h" />
     <ClInclude Include="thread_safe_stack.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

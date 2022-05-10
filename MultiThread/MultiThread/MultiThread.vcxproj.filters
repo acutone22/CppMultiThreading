@@ -24,12 +24,18 @@
     <ClCompile Include="thread_safe_stack.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="thread_safe_queue.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="thread_guard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="thread_safe_stack.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="thread_safe_queue.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

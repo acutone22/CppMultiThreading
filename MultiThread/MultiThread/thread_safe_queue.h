@@ -10,8 +10,8 @@ class thread_safe_queue
     std::condition_variable cv;
     std::queue<std::shared_ptr<T>> queue;
 public:
-    thread_safe_queue();
-    thread_safe_queue(thread_safe_queue const& other_queue);
+    thread_safe_queue() {};
+    thread_safe_queue(thread_safe_queue const& other_queue) {};
 
     void push(T& value)
     {
@@ -72,4 +72,3 @@ public:
     }
 
 };
-

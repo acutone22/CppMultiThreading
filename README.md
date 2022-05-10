@@ -21,4 +21,6 @@ In a race conditions, multiple threads try to access the same resource. This can
 
 **Communication between threads using variables and futures**
 **Condition variable:** basic mechanism for waiting for an event to be triggered by another thread.
-**Futures** provide a mechanism to access the results of an asynchronous operation. Future may launch a "background" task while other operations are running and handle it when finished.
+**Futures** provide a mechanism to access the results of an asynchronous operation. Future may launch a "background" task while other operations are running and handle it when finished. **async** operations are created by std::async, which has a std::launch policy:
+- async -> operations runs in a new created thread
+- deferred -> op runs in the creator thread, when calling future.get(). If you need multiple threads, use std::shared_futures
